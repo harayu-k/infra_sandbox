@@ -24,9 +24,16 @@ jobs:
         with:
           aqua_version: v2.28.0
 
+      - id: github_app_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+
       # 変更のあった作業ディレクトリを取得する Action
       - uses: suzuki-shunsuke/tfaction/list-targets@v1.13.1
-        id: list-targets
+        with:
+          github_app_token: ${{ steps.github_app_token.outputs.token }}
 
   # plan で setup で取得した変更のある作業ディレクトリを並列に実行する
   plan:
