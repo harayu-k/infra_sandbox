@@ -33,7 +33,7 @@ jobs:
       # 変更のあった作業ディレクトリを取得する Action
       - uses: suzuki-shunsuke/tfaction/list-targets@v1.13.1
         with:
-          github_app_token: ${{ steps.github_app_token.outputs.token }}
+          github_token: ${{ steps.github_app_token.outputs.token }}
 
   # plan で setup で取得した変更のある作業ディレクトリを並列に実行する
   plan:
