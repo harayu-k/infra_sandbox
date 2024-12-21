@@ -51,6 +51,7 @@ jobs:
     #     target: ${{ fromJSON(needs.setup.outputs.targets) }}
     env:
       TFACTION_JOB_TYPE: terraform
+      TFACTION_WORKING_DIR: terraform
     steps:
       - uses: actions/checkout@v4
       - uses: aquaproj/aqua-installer@v3.0.1
