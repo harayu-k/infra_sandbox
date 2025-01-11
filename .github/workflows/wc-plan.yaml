@@ -37,6 +37,7 @@ jobs:
   plan:
     # setup で取得した変更のある作業ディレクトリが空の場合は実行しない
     if: join(fromJSON(needs.setup.outputs.targets), '') != ''
+    name: plan (${{matrix.target.target}})
     timeout-minutes: 30
     runs-on: ubuntu-latest
     needs: setup
