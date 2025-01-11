@@ -6,3 +6,14 @@ resource "aws_vpc" "main" {
   }
 }
 
+resource "aws_subnet" "this" {
+  for_each = { for subnet in local.subnets : subnet.name => subnet }
+  vpc_id     = aws_vpc.main.id
+  cidr_block = each.value.cidr
+  availability_zone = each.value.az
+
+  tags = {
+    Name = each.value.name
+  }
+}
+
