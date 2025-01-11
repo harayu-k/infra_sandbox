@@ -36,5 +36,5 @@ resource "aws_iam_role_policy_attachment" "tfmigrate_apply_readonly" {
 }
 
 resource "aws_iam_user" "name" {
-  name = "test"
+  name = "test2"
 }
