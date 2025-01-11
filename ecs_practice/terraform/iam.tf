@@ -34,7 +34,3 @@ resource "aws_iam_role_policy_attachment" "tfmigrate_apply_readonly" {
   role       = module.aws.aws_iam_role_tfmigrate_apply_name
   policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
 }
-
-resource "aws_iam_user" "name" {
-  name = "test234"
-}
