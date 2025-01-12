@@ -1,9 +1,8 @@
-resource "aws_ecr_repository" "frontend" {
-  name = "frontend"
-  image_tag_mutability = "IMMUTABLE"
+locals {
+  aws_ecr_repository_names = [ "frontend", "backend" ]
 }
-
-resource "aws_ecr_repository" "backend" {
-  name = "backend"
+resource "aws_ecr_repository" "this" {
+  for_each = toset(local.aws_ecr_repository_names)
+  name = each.value
   image_tag_mutability = "IMMUTABLE"
 }
