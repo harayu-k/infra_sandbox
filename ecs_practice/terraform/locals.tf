@@ -41,4 +41,45 @@ locals {
       name = "public_management_1c"
     },
   ]
+
+  route_table_names = [
+    "ingress",
+    "app",
+    "db",
+  ]
+
+  route_table_associations = [
+    {
+      route_table = "ingress"
+      subnet =  "public_management_1a"
+    },
+    {
+      route_table = "ingress"
+      subnet =  "public_management_1c"
+    },
+    {
+      route_table = "ingress"
+      subnet =  "public_ingress_1a"
+    },
+    {
+      route_table = "ingress"
+      subnet =  "public_ingress_1c"
+    },
+    {
+      route_table = "app"
+      subnet =  "private_app_1a"
+    },
+    {
+      route_table = "app"
+      subnet =  "private_app_1c"
+    },
+    {
+      route_table = "db"
+      subnet =  "private_db_1a"
+    },
+    {
+      route_table = "db"
+      subnet =  "private_db_1c"
+    },
+  ]
 }
