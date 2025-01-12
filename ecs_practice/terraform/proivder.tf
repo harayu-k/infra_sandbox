@@ -15,4 +15,10 @@ terraform {
   }
 }
 
-provider "aws" {}
+provider "aws" {
+  default_tags {
+    tags = {
+      Managed = "Terraform"
+    }
+  }
+}
