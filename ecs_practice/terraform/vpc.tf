@@ -6,6 +6,10 @@ resource "aws_vpc" "main" {
   }
 }
 
+############################
+# subnet
+############################
+
 resource "aws_subnet" "this" {
   for_each = { for subnet in local.subnets : subnet.name => subnet }
   vpc_id     = aws_vpc.main.id
@@ -17,6 +21,10 @@ resource "aws_subnet" "this" {
   }
 }
 
+############################
+# igw
+############################
+
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 
@@ -24,6 +32,10 @@ resource "aws_internet_gateway" "main" {
     Name = "main"
   }
 }
+
+############################
+# route table
+############################
 
 resource "aws_route_table" "this" {
   for_each = toset(local.route_table_names)
@@ -49,12 +61,16 @@ resource "aws_route_table_association" "this" {
   subnet_id      = aws_subnet.this["${each.value.subnet}"].id
 }
 
-# resource "aws_security_group" "allow_tls" {
-#   vpc_id      = aws_vpc.main.id
-#   name        = "allow_tls"
-#   description = "Allow TLS inbound traffic and all outbound traffic"
+############################
+# security group
+############################
 
-#   tags = {
-#     Name = "allow_tls"
-#   }
-# }
+resource "aws_security_group" "this" {
+  for_each = toset(local.security_groups)
+  vpc_id      = aws_vpc.main.id
+  name        = each.value
+
+  tags = {
+    Name = each.value
+  }
+}

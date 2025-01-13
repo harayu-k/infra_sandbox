@@ -82,4 +82,10 @@ locals {
       subnet =  "private_db_1c"
     },
   ]
+
+  security_groups = [
+    "ingress",
+    "database",
+    "management",
+  ]
 }
