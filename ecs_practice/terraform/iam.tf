@@ -34,3 +34,28 @@ resource "aws_iam_role_policy_attachment" "tfmigrate_apply_readonly" {
   role       = module.aws.aws_iam_role_tfmigrate_apply_name
   policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
 }
+
+############################
+# iam policy
+############################
+
+data "aws_iam_policy" "ecs_codedeploy" {
+  name = "AWSCodeDeployRoleForECS"
+}
+
+############################
+# iam role
+############################
+
+resource "aws_iam_role" "ecs_codedeploy" {
+  name = "ECSCodeDeploy"
+  assume_role_policy = data.aws_iam_policy_document.codedeploy_assume_role.json
+}
+
+resource "aws_iam_policy_attachment" "ecs_codedeploy" {
+  name = "ECSCodeDeploy"
+  roles = [
+    aws_iam_role.ecs_codedeploy.name,
+  ]
+  policy_arn = data.aws_iam_policy.ecs_codedeploy.arn
+}
