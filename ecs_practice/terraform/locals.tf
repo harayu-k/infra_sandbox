@@ -40,6 +40,16 @@ locals {
       cidr = "10.0.241.0/24"
       name = "public_management_1c"
     },
+    {
+      az = "ap-northeast-1a"
+      cidr = "10.0.248.0/24"
+      name = "private_vpc_endpoint_1a"
+    },
+    {
+      az = "ap-northeast-1c"
+      cidr = "10.0.249.0/24"
+      name = "private_vpc_endpoint_1c"
+    },
   ]
 
   route_table_names = [
@@ -87,5 +97,29 @@ locals {
     "ingress",
     "database",
     "management",
+    "vpc_endpoint"
+  ]
+
+  vpc_interface_endpoint = [
+    {
+      service_name = "ecr_api"
+      security_group_ids = [
+        aws_security_group.this["vpc_endpoint"].id,
+      ]
+      subnet_ids = [
+        aws_subnet.this["private_vpc_endpoint_1a" ].id,
+        aws_subnet.this["private_vpc_endpoint_1c" ].id,
+      ]
+    },
+    {
+      service_name = "ecr_dkr"
+      security_group_ids = [
+        aws_security_group.this["vpc_endpoint"].id,
+      ]
+      subnet_ids = [
+        aws_subnet.this["private_vpc_endpoint_1a" ].id,
+        aws_subnet.this["private_vpc_endpoint_1c" ].id,
+      ]
+    }
   ]
 }
