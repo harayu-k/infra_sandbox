@@ -95,6 +95,9 @@ locals {
 
   security_groups = [
     "ingress",
+    "frontend",
+    "backend",
+    "internal",
     "database",
     "management",
     "vpc_endpoint"
