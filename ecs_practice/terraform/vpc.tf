@@ -95,32 +95,32 @@ resource "aws_vpc_security_group_egress_rule" "vpc_endpoint" {
 # # vpc endpoint
 # ############################
 
-resource "aws_vpc_endpoint" "interface" {
-  for_each = { for e in local.vpc_interface_endpoint :
-    e.service_name => e
-  }
-  vpc_id = aws_vpc.main.id
-  service_name      =  "com.amazonaws.ap-northeast-1.${join(".", split("_",each.value.service_name))}"
-  vpc_endpoint_type = "Interface"
+# resource "aws_vpc_endpoint" "interface" {
+#   for_each = { for e in local.vpc_interface_endpoint :
+#     e.service_name => e
+#   }
+#   vpc_id = aws_vpc.main.id
+#   service_name      =  "com.amazonaws.ap-northeast-1.${join(".", split("_",each.value.service_name))}"
+#   vpc_endpoint_type = "Interface"
 
-  security_group_ids = each.value.security_group_ids
-  subnet_ids = each.value.subnet_ids
+#   security_group_ids = each.value.security_group_ids
+#   subnet_ids = each.value.subnet_ids
 
-  private_dns_enabled = true
-  tags = {
-    Name = each.value.service_name
-  }
-}
+#   private_dns_enabled = true
+#   tags = {
+#     Name = each.value.service_name
+#   }
+# }
 
-resource "aws_vpc_endpoint" "s3_gateway" {
-  vpc_id = aws_vpc.main.id
-  service_name = "com.amazonaws.ap-northeast-1.s3"
-  vpc_endpoint_type = "Gateway"
-  route_table_ids = [
-    aws_route_table.this["app"].id,
-  ]
+# resource "aws_vpc_endpoint" "s3_gateway" {
+#   vpc_id = aws_vpc.main.id
+#   service_name = "com.amazonaws.ap-northeast-1.s3"
+#   vpc_endpoint_type = "Gateway"
+#   route_table_ids = [
+#     aws_route_table.this["app"].id,
+#   ]
 
-  tags = {
-    Name = "s3_gateway"
-  }
-}
+#   tags = {
+#     Name = "s3_gateway"
+#   }
+# }
