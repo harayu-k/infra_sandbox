@@ -48,7 +48,7 @@ data "aws_iam_policy" "ecs_codedeploy" {
 ############################
 
 resource "aws_iam_role" "ecs_codedeploy" {
-  name = "ECSCodeDeployV2"
+  name = "ECSCodeDeploy"
   assume_role_policy = data.aws_iam_policy_document.codedeploy_assume_role.json
 }
 
