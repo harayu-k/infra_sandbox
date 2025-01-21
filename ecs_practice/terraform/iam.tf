@@ -43,6 +43,11 @@ data "aws_iam_policy" "ecs_codedeploy" {
   name = "AWSCodeDeployRoleForECS"
 }
 
+resource "aws_iam_policy" "backend_ecs_task_execution" {
+  name = "AWSECSTaskExeccutionRole"
+  policy = data.aws_iam_policy_document.backend_ecs_task_execution.json
+}
+
 ############################
 # iam role
 ############################
@@ -58,4 +63,17 @@ resource "aws_iam_policy_attachment" "ecs_codedeploy" {
     aws_iam_role.ecs_codedeploy.name,
   ]
   policy_arn = data.aws_iam_policy.ecs_codedeploy.arn
+}
+
+resource "aws_iam_role" "backend_ecs_task_execution" {
+  name = "backend-ECSTaskExecution"
+  assume_role_policy = data.aws_iam_policy_document.ecs_assume_role.json
+}
+
+resource "aws_iam_policy_attachment" "backend_ecs_task_execution" {
+  name = "backend-ECSTaskExecution"
+  roles = [
+    aws_iam_role.backend_ecs_task_execution.name,
+  ]
+  policy_arn = aws_iam_policy.backend_ecs_task_execution.arn
 }
