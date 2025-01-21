@@ -110,8 +110,8 @@ locals {
         aws_security_group.this["vpc_endpoint"].id,
       ]
       subnet_ids = [
-        aws_subnet.this["private_vpc_endpoint_1a" ].id,
-        aws_subnet.this["private_vpc_endpoint_1c" ].id,
+        aws_subnet.this["private_vpc_endpoint_1a"].id,
+        aws_subnet.this["private_vpc_endpoint_1c"].id,
       ]
     },
     {
@@ -120,8 +120,8 @@ locals {
         aws_security_group.this["vpc_endpoint"].id,
       ]
       subnet_ids = [
-        aws_subnet.this["private_vpc_endpoint_1a" ].id,
-        aws_subnet.this["private_vpc_endpoint_1c" ].id,
+        aws_subnet.this["private_vpc_endpoint_1a"].id,
+        aws_subnet.this["private_vpc_endpoint_1c"].id,
       ]
     }
   ]
