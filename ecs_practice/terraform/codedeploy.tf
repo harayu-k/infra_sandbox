@@ -52,15 +52,3 @@ resource "aws_codedeploy_deployment_group" "ecs" {
     }
   }
 }
-
-# import {
-#   to = aws_codedeploy_deployment_group.example
-#   id = "test:test-group"
-# }
-
-# resource "aws_codedeploy_deployment_group" "example" {
-#     app_name = "aaaaaaa"
-#   deployment_group_name = "ecs"
-#   service_role_arn = aws_iam_role.ecs_codedeploy.arn
-
-# }
