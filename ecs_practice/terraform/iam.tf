@@ -44,8 +44,13 @@ data "aws_iam_policy" "ecs_codedeploy" {
 }
 
 resource "aws_iam_policy" "backend_ecs_task_execution" {
-  name = "AWSECSTaskExeccutionRole"
+  name = "backend-AWSECSTaskExeccutionRole"
   policy = data.aws_iam_policy_document.backend_ecs_task_execution.json
+}
+
+resource "aws_iam_policy" "frontend_ecs_task_execution" {
+  name = "frontend-AWSECSTaskExeccutionRole"
+  policy = data.aws_iam_policy_document.frontend_ecs_task_execution.json
 }
 
 ############################
@@ -76,4 +81,17 @@ resource "aws_iam_policy_attachment" "backend_ecs_task_execution" {
     aws_iam_role.backend_ecs_task_execution.name,
   ]
   policy_arn = aws_iam_policy.backend_ecs_task_execution.arn
+}
+
+resource "aws_iam_role" "frontend_ecs_task_execution" {
+  name = "frontend-ECSTaskExecution"
+  assume_role_policy = data.aws_iam_policy_document.ecs_assume_role.json
+}
+
+resource "aws_iam_policy_attachment" "frontend_ecs_task_execution" {
+  name = "frontend-ECSTaskExecution"
+  roles = [
+    aws_iam_role.frontend_ecs_task_execution.name,
+  ]
+  policy_arn = aws_iam_policy.frontend_ecs_task_execution.arn
 }

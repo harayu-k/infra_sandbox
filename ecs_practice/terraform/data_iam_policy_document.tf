@@ -63,3 +63,35 @@ data "aws_iam_policy_document" "backend_ecs_task_execution" {
     ]
   }
 }
+
+data "aws_iam_policy_document" "frontend_ecs_task_execution" {
+  statement {
+    actions = [
+      "ecr:GetAuthorizationToken",
+    ]
+    effect = "Allow"
+    resources = ["*"]
+  }
+  statement {
+    actions = [
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:GetDownloadUrlForLayer",
+      "ecr:BatchGetImage",
+    ]
+    effect = "Allow"
+    resources = [
+      aws_ecr_repository.this["frontend"].arn,
+    ]
+  }
+
+  statement {
+    actions = [
+      "logs:CreateLogStream",
+      "logs:PutLogEvents",
+    ]
+    effect = "Allow"
+    resources = [
+      "${aws_cloudwatch_log_group.ecs_frontend.arn}:*",
+    ]
+  }
+}

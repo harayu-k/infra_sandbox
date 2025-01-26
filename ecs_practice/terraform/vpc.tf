@@ -85,9 +85,17 @@ resource "aws_vpc_security_group_ingress_rule" "internal" {
   referenced_security_group_id = aws_security_group.this["frontend"].id
 }
 
-resource "aws_vpc_security_group_ingress_rule" "vpc_endpoint" {
+resource "aws_vpc_security_group_ingress_rule" "vpc_endpoint_backend" {
   security_group_id = aws_security_group.this["vpc_endpoint"].id
   referenced_security_group_id = aws_security_group.this["backend"].id
+  ip_protocol = "tcp"
+  from_port = 443
+  to_port = 443
+}
+
+resource "aws_vpc_security_group_ingress_rule" "vpc_endpoint_frontend" {
+  security_group_id = aws_security_group.this["vpc_endpoint"].id
+  referenced_security_group_id = aws_security_group.this["frontend"].id
   ip_protocol = "tcp"
   from_port = 443
   to_port = 443
@@ -102,6 +110,20 @@ resource "aws_vpc_security_group_egress_rule" "backend" {
 resource "aws_vpc_security_group_egress_rule" "frontend" {
   security_group_id = aws_security_group.this["frontend"].id
   ip_protocol = "-1"
+  cidr_ipv4 = "0.0.0.0/0"
+}
+
+resource "aws_vpc_security_group_ingress_rule" "frontend" {
+  security_group_id = aws_security_group.this["frontend"].id
+  referenced_security_group_id = aws_security_group.this["ingress"].id
+  ip_protocol = "-1"
+}
+
+resource "aws_vpc_security_group_ingress_rule" "ingress" {
+  security_group_id = aws_security_group.this["ingress"].id
+  ip_protocol = "tcp"
+  from_port = "80"
+  to_port = "80"
   cidr_ipv4 = "0.0.0.0/0"
 }
 
