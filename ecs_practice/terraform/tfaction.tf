@@ -3,6 +3,6 @@ module "aws" {
 
   name                               = "AWS"
   repo                               = "harayu-k/infra_sandbox"
-  s3_bucket_tfmigrate_history_name   = aws_s3_bucket.tf_history.bucket
-  s3_bucket_terraform_state_name     = aws_s3_bucket.tf_state.bucket
+  s3_bucket_tfmigrate_history_name   = "my-sandbox-tf-history"
+  s3_bucket_terraform_state_name     = "my-sandbox-tf-state"
 }
