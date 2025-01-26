@@ -37,6 +37,12 @@ resource "aws_ecs_service" "backend" {
       aws_security_group.this["backend"].id,
     ]
   }
+
+  lifecycle {
+    ignore_changes = [
+      load_balancer, # B/G deployのため
+    ]
+  }
 }
 
 resource "aws_ecs_task_definition" "backend" {
@@ -79,7 +85,7 @@ resource "aws_ecs_task_definition" "backend" {
 
   lifecycle {
     ignore_changes = [
-      container_definitions, # CI/CDなどTerraform外でタスク定義を更新するためtame
+      container_definitions, # CI/CDなどTerraform外でタスク定義を更新するため
     ]
   }
 }
@@ -128,7 +134,7 @@ resource "aws_ecs_task_definition" "frontend" {
 
   lifecycle {
     ignore_changes = [
-      container_definitions, # CI/CDなどTerraform外でタスク定義を更新するためtame
+      container_definitions, # CI/CDなどTerraform外でタスク定義を更新するため
     ]
   }
 }

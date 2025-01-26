@@ -55,6 +55,12 @@ resource "aws_lb_listener" "internal" {
     type             = "forward"
     target_group_arn = aws_lb_target_group.backend_blue.arn
   }
+
+  lifecycle {
+    ignore_changes = [
+      default_action, # B/G deployのため
+    ]
+  }
 }
 
 resource "aws_lb" "ingress" {
