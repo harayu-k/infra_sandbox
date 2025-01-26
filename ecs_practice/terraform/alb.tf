@@ -56,3 +56,17 @@ resource "aws_lb_listener" "internal" {
     target_group_arn = aws_lb_target_group.backend_blue.arn
   }
 }
+
+resource "aws_lb" "ingress" {
+  name = "ingress"
+  internal           = false
+  load_balancer_type = "application"
+  ip_address_type = "ipv4"
+  subnets = [
+    aws_subnet.this["public_ingress_1a"].id,
+    aws_subnet.this["public_ingress_1c"].id,
+  ]
+  security_groups = [
+    aws_security_group.this["ingress"].id,
+  ]
+}
