@@ -1,5 +1,5 @@
 locals {
-  aws_ecr_repository_names = [ "frontend", "backend" ]
+  aws_ecr_repository_names = [ "frontend", "backend", "fluent-bit" ]
 }
 resource "aws_ecr_repository" "this" {
   for_each = toset(local.aws_ecr_repository_names)
