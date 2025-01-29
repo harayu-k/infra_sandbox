@@ -1,0 +1,10 @@
+name: test
+
+on: pull_request_target
+
+jobs:
+  setup:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "hello"
