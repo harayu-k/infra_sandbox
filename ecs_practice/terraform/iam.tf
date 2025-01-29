@@ -49,7 +49,7 @@ resource "aws_iam_policy" "backend_ecs_task_execution" {
 }
 
 resource "aws_iam_policy" "frontend_ecs_task_execution" {
-  name = "frontend-AWSECSTaskExeccutionRoletest"
+  name = "frontend-AWSECSTaskExeccutionRoletesttest"
   policy = data.aws_iam_policy_document.frontend_ecs_task_execution.json
 }
 
