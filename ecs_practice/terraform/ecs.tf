@@ -14,7 +14,7 @@ resource "aws_ecs_service" "backend" {
   name            = "backend"
   cluster         = aws_ecs_cluster.backend.arn
   task_definition = aws_ecs_task_definition.backend.arn
-  desired_count   = 1
+  desired_count   = 0
   launch_type = "FARGATE"
   availability_zone_rebalancing = "ENABLED"
 
