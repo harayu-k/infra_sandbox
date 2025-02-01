@@ -1,10 +1,10 @@
-# resource "aws_ecs_cluster" "backend" {
-#   name = "backend"
-# }
+resource "aws_ecs_cluster" "backend" {
+  name = "backend"
+}
 
-# resource "aws_ecs_cluster" "frontend" {
-#   name = "frontend"
-# }
+resource "aws_ecs_cluster" "frontend" {
+  name = "frontend"
+}
 
 # ############################
 # # backend
